@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hangman Game!</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css">
+
+</head>
+
+<body>
+    
+         <div id="main-container" class="container">
+         <section class="main-section">
+            <h1>Word Guess Game</h1> 
+            
+
+     <img src="assets/images/guessthewordpic.png" class="auth-image" alt=""> 
+
+    
+        <!-- <body onload="startUp()"> -->
+         <h3>Press any key to get started!</h3> 
+         <input id = "letter" type = "text">
+        <!-- <input id = "letter" type = "text" onfocus="this.value= ' '"> -->
+        <input type = "button" value = "Guess letter" onClick="Letter()"/>
+        <p id="answer"></p>
+        <p id="counter"></p>
+        <p id="Remaining"></p>
+        <p id="guessed"></p>
+        <p id="matched"></p>
+        <p id="start"></p>
+     <!-- </body> -->
+        
+       <script type="text/javascript">
+        var s;
+        var count = 0;
+        var winCount = 0;
+        var ml;
+        var First=1;
+
+        var myGamePiece;
+        var myObstacles = [];
+        var mySound;
+        var myMusic;
+
+
+
+        var words = ["fish", "pancake", "biscuit", "table", "chair", "burger"];
+        // var words = ["fish", "cat"];
+        // Pick a random word
+        var randomWord = words[Math.floor(Math.random() * words.length)];
+        var remainingLetters = randomWord.length;
+        // Set up the answer array
+        var answerArray = [];
+        var guessedLetters = [];
+        
+        //here we fill the answer array with under scores
+        // the number of underscores matches the letters in the randomly choosen word
+        // function startUp ()
+        // {
+         for (var i = 0; i < randomWord.length; i++) {
+            answerArray[i] = "_";
+           }
+
+        //put them in a string
+        s = answerArray.join(" ");
+        document.getElementById("answer").innerHTML = s;
+        // }
+
+        function Letter()
+        {
+
+    
+            // here we get the letter that the user typed in the box
+            var letter = document.getElementById("letter").value;
+            
+            // make sure we have a guess , later we need to add the code to check only one letter is entered etc.
+            if (letter.length > 0)
+        {
+                for (var i = 0; i < randomWord.length; i++)
+              {
+                    // if the randomword contains a letter that the user typed in
+                if  (randomWord[i]=== letter)
+                  {
+                      // assign it to letter
+                    //   ml = ml.concat(letter);
+                    answerArray[i] = letter;
+                    remainingLetters--;
+                  }
+              } 
+                 // here is how many times it takes to guess        
+                 if (remainingLetters != 0) 
+                {
+                 guessedLetters[count]=letter;
+                 count++;
+                 document.getElementById("counter").innerHTML = "No of clicks: " + count;
+                 document.getElementById("Remaining").innerHTML = "No of Guesses Remaining: " + (2 * randomWord.length - count);
+                 document.getElementById("guessed").innerHTML = "Letters already Guessed: " + guessedLetters;
+                  document.getElementById("answer").innerHTML = answerArray.join(" ");
+                  document.getElementById("letter").value="";
+                  
+                } else {
+                    //user was able to guess it correctly
+                 guessedLetters[count]=letter;
+                 count++;
+                 document.getElementById("counter").innerHTML = "No of clicks: " + count;
+                 document.getElementById("Remaining").innerHTML = "No of Guesses Remaining: " + (2 * randomWord.length - count);
+                 document.getElementById("guessed").innerHTML = "Letters already Guessed: " + guessedLetters;
+                  document.getElementById("answer").innerHTML = answerArray.join(" ");
+                  // increment no of Win
+                winCount++;
+                document.getElementById("matched").innerHTML = "WINS: " + winCount;
+                document.getElementById("letter").value="";
+                
+                function startGame() {
+    // myGamePiece = new component(30, 30, "red", 10, 120);
+    mySound = new sound("bounce.mp3");
+    myMusic = new sound("gametheme.mp3");
+    myMusic.play();
+    myGameArea.start();
+}
+                 
+
+
+                First = 0;
+                
+
+               
+                }
+            
+           } 
+            
+        }
+    
+        
+            
+    </script>
+</div>
+            </section>
+</body>
+
+</html>
